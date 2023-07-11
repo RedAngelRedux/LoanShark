@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+
+    <title>RACECAR</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <!-- Third-party CSS-->
+    <script src="https://kit.fontawesome.com/5db21ba9c6.js" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="/css/prism.css">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/site.css">
+
+    <link rel="icon" type="image/png" href="/img/favicon-32x32.png">
+
+</head>
+
+<body class="d-flex flex-column h-100">
+<!-- 
+    "d-flex flex-column h-100" in yhr body tag is how we guarantee that the  footer is always at the 
+    bottom of the page no matter the size or resolution of the viewport 
+-->
+
+<!-- === NAV SECTION === -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" target="_blank" href="https://sammynava.com"><img src="img/fullColorMark_adobe_express.svg" height="50"></a>&nbsp;<a class="navbar-brand"  href="/index.html">RACECAR</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/app.html">The App</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/code.html">The Code</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://github.com/RedAngelRedux/RaceCar.git">Git Repot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://sammynava.com">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- === MAIN SECTION === -->
+<main class="flex-shrink-0">
+<!-- "flex-shrink-0" in the main tag is also necessary to ensure a sticky footer -->    
+    <div class="container py-5 px-5 mt-5">
+        <h2 class="border-1 border-bottom border-dark">The Code for FIZZ BUZZ</h2>
+        <idv class="row row-cols-1">
+            <!-- === CODE EMBED ===-->
+            <div>
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        // CONTROLLER
+                        function runFizzBuzz() {
+                        }
+                        
+                        // LOGIC
+                        function generateResults(fizz, buzz, start, end) {
+                        }
+                        
+                        function generateResultsB(fizz, buzz, start, end) {
+                        }
+                        
+                        function generateResultsC(fizz,buzz,start,end) {
+                        }
+                        
+                        function generateResultsD(fizz,buzz,start,end) {
+                        }
+                        
+                        // UI
+                        function displayResults(fbArray) {
+                        }
+                        
+                        // SUPPORT
+                        function roundNumber(rnum, rlength) { 
+                        }                          
+                    </code>
+                </pre>
+            </div>
+            <!-- === DESCRIPTION OF CODE ==== -->
+            <div>
+                <p>The Code is structured with three primary functions representing three main concerns;
+                controller, logic, and UI.</p>
+                <h5>runFizzBuzz() - The Controller</h5>
+                <p>
+                    <button class="btn btn-dark" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#runFizzBuzz_Code" aria-expanded="false" 
+                    aria-controls="collapseExample" id="btnRunFizzBuzz">
+                        View Code...
+                    </button>
+                </p>                      
+                <div class="collapse" id="runFizzBuzz_Code">
+                    <div class="card card-body">
+                        <pre class="line-numbers">
+                            <code class="language-javascript">
+                                function runFizzBuzz() {
+
+                                    // Reset alert & results table to invisible
+                                    let resultsDiv = document.getElementById("resultsDiv");
+                                    resultsDiv.innerHTML = "";
+                                
+                                    // get handlt to runtime span
+                                    let runtimeSpan = document.getElementById("runtime");
+                                    runtimeSpan.innerHTML = "";
+                                    
+                                    // obtain user values
+                                    let fizzNum = document.getElementById("fizzNum").value;
+                                    let buzzNum = document.getElementById("buzzNum").value;
+                                    let startRange = document.getElementById("startRange").value;
+                                    let endRange = document.getElementById("endRange").value;
+                                    let variations = document.getElementsByName("rbVariation");
+                                    let variation = "rbA";
+                                    for( let i of variations) {
+                                        variation = (i.checked) ? i.id : variation;
+                                    }
+                                
+                                
+                                    // validate input
+                                    fizzNum = parseInt(fizzNum);
+                                    buzzNum = parseInt(buzzNum);
+                                    startRange = parseInt(startRange);
+                                    endRange = parseInt(endRange);
+                                
+                                    let errorMsg = "";
+                                
+                                    if(!Number.isInteger(fizzNum)) {
+                                        errorMsg += `${errorMsg} The value you entered for Fizz is not a valid integer<br>`;
+                                    }
+                                    if(!Number.isInteger(buzzNum)) {
+                                        errorMsg = `${errorMsg} The value you entered for buzz is not a valid integer<br>`;
+                                    }    
+                                    if(!Number.isInteger(startRange)) {
+                                        errorMsg = `${errorMsg} The value you entered for start of range is not a valid integer<br>`;
+                                    }    
+                                    if(!Number.isInteger(endRange)) {
+                                        errorMsg = `${errorMsg} The value you entered for end of range is not a valid integer<br>`;
+                                    }
+                                    if(startRange > endRange) {
+                                        errorMsg =  `${errorMsg} The starting number of the range must be less than the ending number`;
+                                    }
+                                
+                                    if( errorMsg == "") {
+                                
+                                        let results = [];
+                                
+                                        const start = performance.now();
+                                        switch(variation) {
+                                            case "rbA": {
+                                                results = generateResults(fizzNum,buzzNum,startRange,endRange);
+                                                break;
+                                            }
+                                            case "rbB": {
+                                                results = generateResultsB(fizzNum,buzzNum,startRange,endRange);
+                                                break;
+                                            }
+                                            case "rbC": {
+                                                results = generateResultsC(fizzNum,buzzNum,startRange,endRange);
+                                                break;
+                                            }
+                                            case "rbD": {
+                                                results = generateResultsD(fizzNum,buzzNum,startRange,endRange);
+                                                break;
+                                            }
+                                        }
+                                        results = generateResults(fizzNum,buzzNum,startRange,endRange);
+                                        const end = performance.now();
+                                
+                                        runtimeSpan.innerHTML = `Execution time for solution selected was ${roundNumber(end-start,4)} ms`;
+                                
+                                        displayResults(results);
+                                
+                                    } else {
+                                
+                                        // get handle to template
+                                        let alertTemplate = document.getElementById("alertTemplate");
+                                
+                                        // get handle to p tag via importNode
+                                        let template = document.importNode(alertTemplate.content,true);
+                                        let p = template.querySelector("p");
+                                
+                                        // clear p tag
+                                        p.innerHTML = "";
+                                
+                                        // add new message
+                                        p.innerHTML = errorMsg;
+                                
+                                        // append template to results div
+                                        resultsDiv.appendChild(template);
+                                        
+                                    }
+                                
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                </div>    
+                <p>runnFizzBuzz(), which is triggered when the user clicks on the "Go Bea" button, 
+                    will 1) gather and validate all user inputs, then 2) either run the appropriate 
+                    logic function or displays an error if data validation fails, and finally 3) 
+                    display the results to the user. 
+                    <br><span class="text-warning bg-dark">NOTE:  Even though the Bootstrap 5 components are used come with 
+                    built-in validation, the code does not assume those validations worked, since it is possbiel the 
+                    particular browser running the code does not support Bootstrap 5 validation.</span>
+                </p>
+            </div>
+        </idv>
+    </div>
+</main>
+
+<!-- === FOOTER SECTION === -->
+<footer class="footer mt-auto py-3 sticky-footer">
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-md-3 gy-2">
+            <div class="col d-flex align-items-center justify-content-center justify-content-md-start order-last order-md-first text-light ">
+                <div class="my-link"><span class="text-muted">&copy;2023</span>&nbsp;<a target="_blank" href="https://sammynava.com">Sammy Nava</a> | <a href="mailto:hire_me@sammynava.com">hire_me@sammuynava.com</a></div>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+                <a class="navbar-brand" target="_blank" href="https://sammynava.com"><img src="/img/nameOrangeBgDark_adobe_express.svg" alt="Sammy Nava Logo" height="38"></a>
+            </div>
+            <div class="d-flex align-items-center justify-content-center justify-content-md-end">
+                <div class="row">
+                    <div class="col social"><a href="https://www.linkedin.com/in/sammy-nava-85572a27" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></div>
+                    <div class="col social"><a href="https://github.com/RedAngelRedux" target="_blank"><i class="fab fa-github fa-2x"></i></a></div>
+                    <div class="col social"><a href="https://twitter.com/sammynavausa" target="_blank"><i class="fab fa-twitter fa-2x"></i></a></div>
+                    <div class="col social"><a href="https://www.youtube.com/@sammynava5357" target="_blank"><i class="fab fa-youtube fa-2x"></i></a></div>
+                </div>
+            </div>
+        </div>            
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+</script>
+
+<!-- === JS for Prism Functionality === -->
+<script src="/js/prism.js"></script>
+
+<script>
+    Prism.plugins.NormalizeWhitespace.setDefaults({
+    'remove-trailing': true,
+    'remove-indent': true,
+    'left-trim': true,
+    'right-trim': true
+    })    
+</script>
+
+<script>
+    document.getElementById("btnRunFizzBuzz").addEventListener("click",toggleViewCode);
+</script>
+
+</body>
+
+</html>

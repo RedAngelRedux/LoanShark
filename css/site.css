@@ -1,0 +1,133 @@
+/* :root {
+    --primary-color: #1B273D;
+    --secondary-color: #F16806;
+    --dark-color: #292929;
+    --white-color: #e7e7e7;
+    --fizzbuzz-yellow: #C9AF35;
+    --fizzbuzz-grey: #837C7B
+} */
+:root {
+    --primary-color:#837C7B;
+    --secondary-color: #C9AF35;
+    --dark-color: #292929;
+    --white-color: #e7e7e7;
+    --fizzbuzz-yellow: #C9AF35;
+    --fizzbuzz-grey: #837C7B;
+    --myOrange: #F16806;
+}
+
+body {
+    color: var(--dark-color);
+}
+
+nav {
+    background-color: var(--dark-color);
+}
+
+footer {
+    background-color: var(--dark-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color)
+}
+
+main>.container {
+    padding: 60px 15px 0;
+    margin-bottom: 5rem;
+}
+.sticky-footer {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+footer {
+    padding-right: 1rem;
+}
+
+footer .social>a {
+    color: var(--white-color);
+    opacity: 0.75;
+}
+
+footer .social>a:hover {
+    opacity: 0..90;
+    color: var(--secondary-color);
+}
+
+footer .my-link>a:link {
+    color: var(--white-color)
+}
+
+footer .my-link>a:hover {
+    color: var(--secondary-color)
+}
+
+footer .my-link>a:active {
+    color: var(--white-color)
+}
+
+footer .my-link>a:visited {
+    color: var(--white-color)
+}
+
+.text-my-color {
+    color: var(--secondary-color);
+}
+
+.text-my-white {
+    color: var(--white-color);
+}
+
+.bsicon {
+    color: purple;
+}
+
+.jsicon {
+    color: rgb(226,221,4);
+}
+
+.html5icon {
+    color: orangered;
+}
+
+.css3icon {
+    color: rgb(11,82,214);
+}
+
+.checklist > li i {
+    color: var(--fizzbuzz-yellow);
+}
+
+code[class*="language-"],
+    pre[class*="language-"] {
+        white-space: pre-wrap;
+        word-break: break-all;
+        word-wrap: break-word;
+}
+
+div .fizzbuzz .btn:hover {
+    color: var(--fizzbuzz-yellow);
+}
+
+tbody .fizzbuzz {
+    font-weight: bolder;
+    color: var(--fizzbuzz-grey);
+}
+
+.Fizz {
+    color: var(--primary-color);
+    font-weight: bolder;
+}
+
+.Buzz {
+    color: var(--secondary-color);
+    font-weight: bolder;
+}
+
+.FizzBuzz {
+    color: var(--myOrange);
+    font-weight: bold;
+}
