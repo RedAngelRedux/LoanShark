@@ -7,12 +7,12 @@
     --fizzbuzz-grey: #837C7B
 } */
 :root {
-    --primary-color:#837C7B;
-    --secondary-color: #C9AF35;
+    --primary-color:#006699;
+    --secondary-color: #ff9933;
     --dark-color: #292929;
     --white-color: #e7e7e7;
-    --fizzbuzz-yellow: #C9AF35;
-    --fizzbuzz-grey: #837C7B;
+    --fizzbuzz-yellow: #ff9933;
+    --fizzbuzz-grey: #006699;
     --myOrange: #F16806;
 }
 

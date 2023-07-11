@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>RACECAR</title>
+    <title>LOAN SHARK</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -32,7 +32,7 @@
 <!-- === NAV SECTION === -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" target="_blank" href="https://sammynava.com"><img src="img/fullColorMark_adobe_express.svg" height="50"></a>&nbsp;<a class="navbar-brand"  href="/index.html">RACECAR</a>
+        <a class="navbar-brand" target="_blank" href="https://sammynava.com"><img src="img/fullColorMark_adobe_express.svg" height="50"></a>&nbsp;<a class="navbar-brand"  href="/index.html">LOAN SHARK</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,7 @@
                     <a class="nav-link" href="/code.html">The Code</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="https://github.com/RedAngelRedux/RaceCar.git">Git Repot</a>
+                    <a class="nav-link" target="_blank" href="https://github.com/RedAngelRedux/LoanShark.git">Git Repot</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="https://sammynava.com">About</a>
@@ -63,45 +63,28 @@
 <main class="flex-shrink-0">
     <div class="container mt-5">
         <div class="row">
-            <div class="col">
-                <img src="/img/app-logos.svg" class="img-fluid center-block d-block mx-auto">
-                <hr>
-                <div class="display-6 fw-bold"><h1>Instructions</h1></div>
-                <p>TO DO:  Update this text with application specific instructions.</p> 
-                <div class="display-6 fw-bold"><h1>Expected Result</h1></div>
-                <p>TO DO:  Replace this text with application specific verbiage.</p>
-            </div>
-            <div class="col border-start border-end border-2">                    
+            <div class="col-12 display-6 fw-bold"><h3><span class="d-none d-md-inline">Loan&nbsp;</span><spa class="d-sm-inline">Calculator</spa<</h3></div>
+            <div class="col-12 col-md-6">
                 <form class="row">
-                    <div class="col-12 col-lg-6">
-                        <label type="label" class="form-label" for="numberInput">Input Number</label>
-                        <input type="text" class="form-control" id="numberInput" name="numberInput" placeholder="3" value="3" aria-label="Input Number">
+                    <div class="col-12">
+                        <label type="label" class="form-label" for="loanAmount"><span class="d-none d-sm-inline">Loan</span><spa class="d-md-inline">&nbsp;Amount</spa</label>
+                        <input type="number" class="form-control" id="loanAmount" name="loanAmount" placeholder="100000" value="100000" aria-label="Loan Amount">
                     </div>
-                    <div class="col-12 col-lg-6">
-                        <label type="label" class="form-label mt-2" for="divVariation">Logtic Variation:</label>
-                    </div>                        
-                    <div class="col-12 d-flex justify-content-start" id="divVariation">
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="rbA">A</label>
-                            <input class="form-check-input" type="radio" name="rbVariation" id="rbA" checked>
-                        </div>
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="rbA">B</label>
-                            <input class="form-check-input" type="radio" name="rbVariation" id="rbB">
-                        </div>
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="rbA">C</label>
-                            <input class="form-check-input" type="radio" name="rbVariation" id="rbC">
-                        </div>
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="rbA">D</label>
-                            <input class="form-check-input" type="radio" name="rbVariation" id="rbD">
-                        </div> 
+                    <div class="col-12">
+                        <label type="label" class="form-label" for="monthlyPayments"><span class="d-none d-sm-inline">Payment</span><spa class="d-md-inline">&nbsp;Months</spa<</label>
+                        <input type="number" class="form-control" id="mmonthlyPayments" name="mmonthlyPayments" placeholder="360" value="360" aria-label="Monthly Payments">
                     </div>
-                    <div class="col-12 border border-warning" id="runtime"></div>  
-                    <div class="col-12 d-flex justify-content-end mb-3">
+                    <div class="col-12">
+                        <label type="label" class="form-label" for="interestRate"><span class="d-none d-sm-inline">Interest</span><spa class="d-md-inline">&nbsp;Rate</spa<</label>
+                        <input type="number" class="form-control" id="interestRate" name="interestRate" placeholder="5" value="5" aria-label="Interest Rate">
+                    </div>
+                    <div class="col-12 d-flex justify-content-startr mb-3">
                         <button type="button" id="btnSubmit" class="btn btn-warning mt-2">Submit</button>
                     </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-6 border-start border-end border-2">                    
+                <form class="row">
                 </form>         
                 <div id="resultsDiv" class="border">
                     <!-- === Either alertTemplate or tableTemplate Goes Here-->
