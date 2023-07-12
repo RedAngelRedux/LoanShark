@@ -71,8 +71,8 @@
                         <input type="number" class="form-control" id="loanAmount" name="loanAmount" placeholder="100000" value="100000" aria-label="Loan Amount">
                     </div>
                     <div class="col-12">
-                        <label type="label" class="form-label" for="monthlyPayments"><span class="d-none d-sm-inline">Payment</span><spa class="d-sm-inline">&nbsp;Months</spa<</label>
-                        <input type="number" class="form-control" id="mmonthlyPayments" name="mmonthlyPayments" placeholder="360" value="360" aria-label="Monthly Payments">
+                        <label type="label" class="form-label" for="moPmts"><span class="d-none d-sm-inline">Monthly</span><spa class="d-sm-inline">&nbsp;Payments</spa</label>
+                        <input type="number" class="form-control" id="moPmts" name="moPmts" placeholder="360" value="360" aria-label="Monthly Payments">
                     </div>
                     <div class="col-12">
                         <label type="label" class="form-label" for="interestRate"><span class="d-none d-sm-inline">Interest</span><spa class="d-sm-inline">&nbsp;Rate</spa<</label>
@@ -87,7 +87,7 @@
                 <div class="row display-6 fw-bold justify-content-center">Your Monthly Payments</div>
                 <div class="row mt-5 display-4 fw-bolder justify-content-center">$471.78</div>
                 <div class="row mt-5">
-                    <div class="input-group">
+                    <div class="input-group" id="loanSummary">
                         <div class="col-4">&nbsp;</div>
                         <div class="col-3 fw-bold">Total Principal</div>
                         <div class="col-3 fw-bold">$100,000</div>
@@ -102,7 +102,7 @@
                     </div>
                 </div>                
             </div>
-            <div class="col-12" id="resultsDiv">
+            <div class="col-12 border" id="resultsDiv">
                 <!-- === Either alertTemplate or tableTemplate Goes Here-->
             </div>
         </div>

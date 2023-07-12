@@ -5,23 +5,21 @@ function runSubmit() {
     let resultsDiv = document.getElementById("resultsDiv");
     resultsDiv.innerHTML = "";
 
-    // get handle to runtime span
-    let runtimeSpan = document.getElementById("runtime");
-    runtimeSpan.innerHTML = "";
-    
-    // obtain user values
-    let firstNum = document.getElementById("numberInput").value;
-    let variations = document.getElementsByName("rbVariation");
-    let variation = "rbA";
-    for( let i of variations) {
-        variation = (i.checked) ? i.id : variation;
+    // obtain handles to necessary form fields
+    let fields = {};
+    fields.fld_LoanAmount = document.getElementById("loanAmount");
+    fields.fld_InterestRate = document.getElementById("interestRate");
+    fields.fld_MonthlyPayments = document.getElementById("moPmts");
+
+    if(validatefields(fields).valid && generateResults(fields).valid) {
+        displayResults(fields);
+    } else {
+        // Display Input Error, highlight each invalid field, select first invalid field
+        displayErrors(fields);
     }
 
 
-    // validate input
-    firstNum = parseInt(firstNum);
-
-    let errorMsg = "";
+/*     let errorMsg = "";
 
     if(!Number.isInteger(firstNum)) {
         errorMsg += `${errorMsg} The value you entered is not a valid integer<br>`;
@@ -75,46 +73,53 @@ function runSubmit() {
         resultsDiv.appendChild(template);
         
     }
+ */
+
+}
+
+function validatefields(fields) {
+
+    fields.loanAmount = parseFloat(fields.fld_LoanAmount.value);
+    fields.interestRate = parseFloat(fields.fld_InterestRate.value);
+    fields.monthlyPayments = parseFloat(fields.fld_MonthlyPayments.value);
+
+    fields.errorMsg = "";
+    fields.valid = true;
+
+    if( Number.isNaN(fields.loanAmount) || fields.loanAmount < 1 || fields.loanAmount > 1000000000)   {
+        fields.errorMsg = "Please enter a valid loan amount greater between $1.00 and $1,000,000,000.";
+        fields.fld_LoanAmount.classList.add("border-danger");
+    }
+
+    if( Number.isNaN(fields.monthlyPayments) || fields.monthlyPayments < 1 || fields.monthlyPayments > 1200 )  {
+        fields.errorMsg = "Please enter a valid number of monthly payments between 1 and 1200";
+        fields.fld_MonthlyPayments.classList.add("border-danger");       
+    }
+
+    if( Number.isNaN(fields.interestRate) || fields.interestRate < 0 || fields.interestRate > 100 ) {
+        fields.errorMsg = "Please enter a valid interest rate between 0% and 100%";
+        fields.fld_InterestRate.classList.add("border-danger");
+    }
+
+    fields.valid = (fields.errorMsg != "") ? false : true;
+
+    return fields;
 
 }
 
 // LOGIC
-function generateResults(firstNum) {
+function generateResults(fields) {
 
-    let results = ['A',firstNum,'A',firstNum]; 
-
-    return results;
-
-}
-
-function generateResultsB(firstNum) {
-
-    let results = ['B',firstNum,'B',firstNum]; 
-
-    return results;
-
-}
-
-function generateResultsC(firstNum) {
-
-    let results = ['C',firstNum,'C',firstNum]; 
-
-    return results;
-
-}
-
-function generateResultsD(firstNum) {
-
-    let results = ['D',firstNum,'D',firstNum]; 
-
-    return results;
+    return fields;
 
 }
 
 // UI
-function displayResults(fbArray) {
+function displayResults(fields) {
 
-    // get handle to results div
+    alert("Results Displayed");
+
+/*     // get handle to results div
     let resultsDiv = document.getElementById("resultsDiv");
 
     // get handle to table template
@@ -161,6 +166,11 @@ function displayResults(fbArray) {
 
         // document.getElementById("tableFizzBuzz").classList.remove("invisible");
     resultsDiv.appendChild(table);
+ */
+}
+
+function displayErrors(fields) {
+    alert("Errors Displayed");
 }
 
 // SUPPORT LOGIC
