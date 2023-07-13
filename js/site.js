@@ -117,15 +117,51 @@ function validatefields(fields) {
 // LOGIC
 function generateResults(fields) {
 
-    let amount = fields.loanAmount;
-    let rate = fields.interestRate / 12 / 100;
-    let months = fields.monthlyPayments;
+    try {
 
-    let payment = amount * (rate / (1 - Math.pow(1 + rate,-months)));
+        let amount = fields.loanAmount;
+        let rate = fields.interestRate / 12 / 100;
+        let months = fields.monthlyPayments;
+    
+        // Calculate the Monthly Payment
+        let payment = amount * (rate / (1 - Math.pow(1 + rate,-months)));
+        fields.payment = payment.toFixed(2);
+    
+        // Create object to hold payment details for one month
+        let pmtDetails = {};
+        pmtDetails.payment = 0;
+        pmtDetails.principal = 0;
+        pmtDetails.interest = 0;
+        pmtDetails.balance = amount;
+    
+        // Create and populate an array of pmtDetails in fields.schedule[]
+        fields.schedule = [];
+        fields.schedule.push(pmtDetails);
+    
+        for(let i = 1; i <= months; i++) {
+            
+            pmtDetails.interest = (amount * rate).toFixed(2);
+            pmtDetails.principal = (fields.payment - pmtDetails.interest).toFixed(2);
+            pmtDetails.balance = (amount - pmtDetails.principal).toFixed(2);
 
-    fields.payment = payment.toFixed(2);
+            if( pmtDetails.balance < 0 ) {
+                let adjustment = Math.abs(pmtDetails.balance).toFixed(2);
+                pmtDetails.principal -= adjustment;
+                pmtDetails.balance = 0;
+            }
 
-    return fields;
+            amount = (amount -= pmtDetails.principal).toFixed(2);
+            fields.schedule.push(pmtDetails);
+        }
+    
+    }
+    catch(e) {
+        fields.valid = false;
+        fields.errorMsg = e.message;
+    }
+    finally {
+        return fields;
+    }
 
 }
 
@@ -136,10 +172,11 @@ function displayResults(fields) {
     let summaryDiv = document.getElementById("summaryDiv");
     let summaryTemplate = document.getElementById("summaryTemplate");
     let summary = document.importNode(summaryTemplate.content,true);
-    let summaryFields = summary.querySelectorAll("p");
+    let summaryFields = summary.querySelectorAll("div");
 
     // update values inside summary
-    summaryFields[0].innerHTML = fields.payment;
+    summaryFields[1].innerHTML = fields.payment;
+    summaryFields[5].innerHTML = "0.00";
 
     // inject summary into summaryDiv
     summaryDiv.appendChild(summary);
