@@ -1,4 +1,5 @@
 // CONTROLLER
+
 function runSubmit() {
 
     resetResults();
@@ -21,71 +22,6 @@ function runSubmit() {
         displayErrors(fields);
     }
 
-
-/*     let errorMsg = "";
-
-    if(!Number.isInteger(firstNum)) {
-        errorMsg += `${errorMsg} The value you entered is not a valid integer<br>`;
-    }
-
-    if( errorMsg == "") {
-
-        let results = [];
-
-        const start = performance.now();
-        switch(variation) {
-            case "rbA": {
-                results = generateResults(firstNum);
-                break;
-            }
-            case "rbB": {
-                results = generateResultsB(firstNum);
-                break;
-            }
-            case "rbC": {
-                results = generateResultsC(firstNum);
-                break;
-            }
-            case "rbD": {
-                results = generateResultsD(firstNum);
-                break;
-            }
-        }
-        const end = performance.now();
-
-        runtimeSpan.innerHTML = `Execution time for solution selected was ${roundNumber(end-start,4)} ms`;
-
-        displayResults(results);
-
-    } else {
-
-        // get handle to template
-        let alertTemplate = document.getElementById("alertTemplate");
-
-        // get handle to p tag via importNode
-        let template = document.importNode(alertTemplate.content,true);
-        let p = template.querySelector("p");
-
-        // clear p tag
-        p.innerHTML = "";
-
-        // add new message
-        p.innerHTML = errorMsg;
-
-        // append template to results div
-        resultsDiv.appendChild(template);
-        
-    }
- */
-
-}
-
-function resetResults() {
-   // Reset resultsDiv, inputAlert, and results table to invisible
-    let summaryDiv = document.getElementById("summaryDiv");
-    summaryDiv.innerHTML = "";
-    let resultsDiv = document.getElementById("resultsDiv");
-    resultsDiv.innerHTML = "";
 }
 
 function validatefields(fields) {
@@ -187,6 +123,15 @@ function generateResults(fields) {
 }
 
 // UI
+
+function resetResults() {
+    // Reset resultsDiv, inputAlert, and results table to invisible
+    let summaryDiv = document.getElementById("summaryDiv");
+    summaryDiv.innerHTML = "";
+    let resultsDiv = document.getElementById("resultsDiv");
+    resultsDiv.innerHTML = "";
+}
+
 function displayResults(fields) {
 
     // Create and Display Amortization Schedule
@@ -270,7 +215,8 @@ function displayErrors(fields) {
 
 }
 
-// SUPPORT LOGIC
+// SUPPORT FUNCTIONS
+
 function roundNumber(rnum, rlength) { 
     var newnumber = Math.round(rnum * Math.pow(10, rlength)) / Math.pow(10, rlength);
     return newnumber;
