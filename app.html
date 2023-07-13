@@ -83,27 +83,11 @@
                     </div>    
                 </form>
             </div>
-            <div class="col-12 col-md-9">   
-                <div class="row display-6 fw-bold justify-content-center">Your Monthly Payments</div>
-                <div class="row mt-5 display-4 fw-bolder justify-content-center">$471.78</div>
-                <div class="row mt-5">
-                    <div class="input-group" id="loanSummary">
-                        <div class="col-4">&nbsp;</div>
-                        <div class="col-3 fw-bold">Total Principal</div>
-                        <div class="col-3 fw-bold">$100,000</div>
-                        <div class="col-2">&nbsp;</div>
-                        <div class="col-4">&nbsp;</div>
-                        <div class="col-3 fw-bold">Total Interest</div>
-                        <div class="col-3 fw-bold">$10,000</div>
-                        <div class="col-2">&nbsp;</div>
-                        <div class="col-4">&nbsp;</div>
-                        <div class="col-3 fw-b0ld fw-bold">Total Cost</div>
-                        <div class="col-3 fw-bold fw-bold">$110,000</div>    
-                    </div>
-                </div>                
+            <div class="col-12 col-md-9" id="summaryDiv"> 
+                <!-- Either summaryTemplate or alertTemplate Goes Here-->
             </div>
             <div class="col-12 border" id="resultsDiv">
-                <!-- === Either alertTemplate or tableTemplate Goes Here-->
+                <!-- === tableTemplate Goes Here Upon Successful Creation of Amorization Schedule-->
             </div>
         </div>
     </div>
@@ -132,6 +116,25 @@
 </footer>
 
 <!-- === CSS TEMPLATES === -->
+
+<template id="summaryTemplate">
+    <div class="row display-6 fw-bold justify-content-center">Your Monthly Payments</div>
+    <div class="row mt-5 display-4 fw-bolder justify-content-center"><p>$471.78</p></div>
+    <div class="row mt-5">                    
+        <div class="col-4">&nbsp;</div>
+        <div class="col-3 fw-bold">Total Principal</div>
+        <div class="col-3 fw-bold"><p>$100,000</p></div>
+        <div class="col-2">&nbsp;</div>
+        <div class="col-4">&nbsp;</div>
+        <div class="col-3 fw-bold">Total Interest</div>
+        <div class="col-3 fw-bold"><p>$10,000</p></div>
+        <div class="col-2">&nbsp;</div>
+        <div class="col-4">&nbsp;</div>
+        <div class="col-3 fw-bold">Total Cost</div>
+        <div class="col-3 fw-bold"><p>$110,000</p></div>
+    </div>                
+</template>
+
 <template id="alertTemplate">
     <div class="alert alert-danger face show" id="alertDiv" role="alert">
         <h4 class="alert-heading">Error Encountered...</h4>

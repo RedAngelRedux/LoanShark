@@ -1,15 +1,22 @@
 // CONTROLLER
 function runSubmit() {
 
-    // Reset alert & results table to invisible
+    // Reset resultsDiv, inputAlert, and results table to invisible
+    let summaryDiv = document.getElementById("summaryDiv");
+    summaryDiv.innerHTML = "";
     let resultsDiv = document.getElementById("resultsDiv");
     resultsDiv.innerHTML = "";
 
-    // obtain handles to necessary form fields
+    // obtain handles to input fields
     let fields = {};
     fields.fld_LoanAmount = document.getElementById("loanAmount");
     fields.fld_InterestRate = document.getElementById("interestRate");
     fields.fld_MonthlyPayments = document.getElementById("moPmts");
+
+    // Reset input feilds to ready state
+    fields.fld_LoanAmount.classList.remove("border-danger", "border-2");
+    fields.fld_InterestRate.classList.remove("border-danger", "border-2");
+    fields.fld_MonthlyPayments.classList.remove("border-danger", "border-2");
 
     if(validatefields(fields).valid && generateResults(fields).valid) {
         displayResults(fields);
@@ -87,19 +94,19 @@ function validatefields(fields) {
     fields.valid = true;
 
     if( Number.isNaN(fields.loanAmount) || fields.loanAmount < 1 || fields.loanAmount > 1000000000)   {
-        fields.errorMsg = "Please enter a valid loan amount greater between $1.00 and $1,000,000,000.";
-        fields.fld_LoanAmount.classList.add("border-danger");
+        fields.errorMsg += "Please enter a valid <b>LOAN AMOUNT</b> between <u><b>$1.00</b></u> and <u><b>$1,000,000,000</b></u><br>";
+        fields.fld_LoanAmount.classList.add("border-danger", "border-2");
     }
 
     if( Number.isNaN(fields.monthlyPayments) || fields.monthlyPayments < 1 || fields.monthlyPayments > 1200 )  {
-        fields.errorMsg = "Please enter a valid number of monthly payments between 1 and 1200";
-        fields.fld_MonthlyPayments.classList.add("border-danger");       
+        fields.errorMsg += "Please enter a valid number of <b>MONTHLY PAYMENTS</b> between <b><u>1</u></b> and <b><u>1200</u></b><br>";
+        fields.fld_MonthlyPayments.classList.add("border-danger", "border-2");
     }
 
     if( Number.isNaN(fields.interestRate) || fields.interestRate < 0 || fields.interestRate > 100 ) {
-        fields.errorMsg = "Please enter a valid interest rate between 0% and 100%";
-        fields.fld_InterestRate.classList.add("border-danger");
-    }
+        fields.errorMsg += "Please enter a valid <b>INTEREST RATE</b> between <b><u>0.00%</u></b> and <u><b>100%</b></u><br>";
+        fields.fld_InterestRate.classList.add("border-danger", "border-2");
+    } 
 
     fields.valid = (fields.errorMsg != "") ? false : true;
 
@@ -110,6 +117,14 @@ function validatefields(fields) {
 // LOGIC
 function generateResults(fields) {
 
+    let amount = fields.loanAmount;
+    let rate = fields.interestRate / 12 / 100;
+    let months = fields.monthlyPayments;
+
+    let payment = amount * (rate / (1 - Math.pow(1 + rate,-months)));
+
+    fields.payment = payment.toFixed(2);
+
     return fields;
 
 }
@@ -117,7 +132,18 @@ function generateResults(fields) {
 // UI
 function displayResults(fields) {
 
-    alert("Results Displayed");
+    // get handle to relevant div's and templates
+    let summaryDiv = document.getElementById("summaryDiv");
+    let summaryTemplate = document.getElementById("summaryTemplate");
+    let summary = document.importNode(summaryTemplate.content,true);
+    let summaryFields = summary.querySelectorAll("p");
+
+    // update values inside summary
+    summaryFields[0].innerHTML = fields.payment;
+
+    // inject summary into summaryDiv
+    summaryDiv.appendChild(summary);
+
 
 /*     // get handle to results div
     let resultsDiv = document.getElementById("resultsDiv");
@@ -170,7 +196,20 @@ function displayResults(fields) {
 }
 
 function displayErrors(fields) {
-    alert("Errors Displayed");
+
+        // get handle to relevant divs and templates
+        let summaryDiv = document.getElementById("summaryDiv");
+        let alertTemplate = document.getElementById("alertTemplate");
+        let summary = document.importNode(alertTemplate.content,true);
+
+        // update summary with error message(s)
+        let p = summary.querySelector("p");
+        p.innerHTML = "";
+        p.innerHTML = fields.errorMsg;
+
+        // append template to results div
+        summaryDiv.appendChild(summary);
+
 }
 
 // SUPPORT LOGIC
