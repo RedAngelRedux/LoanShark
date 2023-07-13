@@ -86,7 +86,7 @@
             <div class="col-12 col-md-9" id="summaryDiv"> 
                 <!-- Either summaryTemplate or alertTemplate Goes Here-->
             </div>
-            <div class="col-12 border" id="resultsDiv">
+            <div class="col-12 mt-5" id="resultsDiv">
                 <!-- === tableTemplate Goes Here Upon Successful Creation of Amorization Schedule-->
             </div>
         </div>
@@ -146,14 +146,15 @@
 </template>
 
 <template id="tableTemplate">
+    <div class="row ms-1 fw-bold">Your Amortization Schedule</div>
     <table class="table table-bordered border-dark table-striped table-sm" id="tableFizzBuzz">
         <thead>
-            <td>Month</td>
-            <td>Payment</td>
-            <td>Principal</td>
-            <td>Interest</td>
-            <td>Total Interest</td>
-            <td>Balance</td>
+            <th>Month</th>
+            <th>Payment</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Total Interest</th>
+            <th>Balance</th>
         </thead>
         <tbody id="tbodyFizzBuzz" class="fizzbuzz">
             <!-- === INSERT ROWS HERE ===-->
@@ -171,6 +172,9 @@
 
 <script>
     document.getElementById("btnSubmit").addEventListener("click",runSubmit);
+    document.getElementById("loanAmount").addEventListener("input",resetResults);
+    document.getElementById("moPmts").addEventListener("input",resetResults);
+    document.getElementById("interestRate").addEventListener("input",resetResults);
 </script>
 
 </body>

@@ -1,11 +1,7 @@
 // CONTROLLER
 function runSubmit() {
 
-    // Reset resultsDiv, inputAlert, and results table to invisible
-    let summaryDiv = document.getElementById("summaryDiv");
-    summaryDiv.innerHTML = "";
-    let resultsDiv = document.getElementById("resultsDiv");
-    resultsDiv.innerHTML = "";
+    resetResults();
 
     // obtain handles to input fields
     let fields = {};
@@ -84,6 +80,14 @@ function runSubmit() {
 
 }
 
+function resetResults() {
+   // Reset resultsDiv, inputAlert, and results table to invisible
+    let summaryDiv = document.getElementById("summaryDiv");
+    summaryDiv.innerHTML = "";
+    let resultsDiv = document.getElementById("resultsDiv");
+    resultsDiv.innerHTML = "";
+}
+
 function validatefields(fields) {
 
     fields.loanAmount = parseFloat(fields.fld_LoanAmount.value);
@@ -152,13 +156,20 @@ function generateResults(fields) {
             pmtDetails.ttlInterest = ttlInterest.toFixed(2);
             pmtDetails.principal = (fields.payment - pmtDetails.interest).toFixed(2);
             pmtDetails.balance = (amount - pmtDetails.principal).toFixed(2);
-                
-            if( pmtDetails.balance < 0 ) {
-                let adjustment = Math.abs(pmtDetails.balance).toFixed(2);
-                pmtDetails.principal = (pmtDetails.principal -= adjustment).toFixed(2);
-                pmtDetails.payment = (pmtDetails.payment -= adjustment).toFixed(2);
-                pmtDetails.balance = 0;
+
+            if(i == months && pmtDetails.balance != 0) {
+                let adjustment = Number(Math.abs(pmtDetails.balance).toFixed(2));
+                if( pmtDetails.balance < 0 ) {
+                    pmtDetails.principal = (pmtDetails.principal -= adjustment).toFixed(2);
+                    pmtDetails.payment = (pmtDetails.payment -= adjustment).toFixed(2);
+                    pmtDetails.balance = 0;
+                } else {
+                    pmtDetails.principal = Number(pmtDetails.principal) + Number(adjustment);
+                    pmtDetails.payment = Number(pmtDetails.payment) + Number(adjustment);
+                    pmtDetails.balance = 0;
+                }
             }
+                
 
             amount = (amount -= pmtDetails.principal).toFixed(2);
             fields.schedule.push(pmtDetails);
@@ -177,19 +188,6 @@ function generateResults(fields) {
 
 // UI
 function displayResults(fields) {
-
-    // get handle to relevant div's and templates
-    let summaryDiv = document.getElementById("summaryDiv");
-    let summaryTemplate = document.getElementById("summaryTemplate");
-    let summary = document.importNode(summaryTemplate.content,true);
-    let summaryFields = summary.querySelectorAll("div");
-
-    // update values inside summary
-    summaryFields[1].innerHTML = fields.payment;
-    summaryFields[5].innerHTML = "0.00";
-
-    // inject summary into summaryDiv
-    summaryDiv.appendChild(summary);
 
     // Create and Display Amortization Schedule
 
@@ -222,22 +220,37 @@ function displayResults(fields) {
 
         rowCols[0].textContent = index;
 
-        rowCols[1].textContent = fields.schedule[index].payment;
+        rowCols[1].textContent = ToCurrency(fields.schedule[index].payment);
 
-        rowCols[2].textContent = fields.schedule[index].principal;
+        rowCols[2].textContent = ToCurrency(fields.schedule[index].principal);
 
-        rowCols[3].textContent = fields.schedule[index].interest;
+        rowCols[3].textContent = ToCurrency(fields.schedule[index].interest);
 
-        rowCols[4].textContent = fields.schedule[index].ttlInterest;
+        rowCols[4].textContent = ToCurrency(fields.schedule[index].ttlInterest);
 
-        rowCols[5].textContent = fields.schedule[index].balance;
+        rowCols[5].textContent = ToCurrency(fields.schedule[index].balance);
 
         tbodyLoanShark.appendChild(tableRow);
     }
 
         // document.getElementById("tableFizzBuzz").classList.remove("invisible");
     resultsDiv.appendChild(table);
- 
+
+    // get handle to relevant div's and templates
+    let summaryDiv = document.getElementById("summaryDiv");
+    let summaryTemplate = document.getElementById("summaryTemplate");
+    let summary = document.importNode(summaryTemplate.content,true);
+    let summaryFields = summary.querySelectorAll("div");
+
+    // update values inside summary
+    summaryFields[1].innerHTML = ToCurrency(fields.payment);
+    summaryFields[5].innerHTML = ToCurrency(fields.loanAmount);
+    summaryFields[9].innerHTML = ToCurrency(fields.schedule[fields.schedule.length-1].ttlInterest);
+    summaryFields[13].innerHTML = ToCurrency(Number(fields.loanAmount) + Number(fields.schedule[fields.schedule.length-1].ttlInterest));
+
+    // inject summary into summaryDiv
+    summaryDiv.appendChild(summary);
+
 }
 
 function displayErrors(fields) {
@@ -261,6 +274,10 @@ function displayErrors(fields) {
 function roundNumber(rnum, rlength) { 
     var newnumber = Math.round(rnum * Math.pow(10, rlength)) / Math.pow(10, rlength);
     return newnumber;
+}
+
+function ToCurrency(amount) {
+    return Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(amount);
 }
 
 // SUPPORT UI
