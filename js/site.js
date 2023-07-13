@@ -128,25 +128,35 @@ function generateResults(fields) {
         fields.payment = payment.toFixed(2);
     
         // Create object to hold payment details for one month
-        let pmtDetails = {};
-        pmtDetails.payment = 0;
-        pmtDetails.principal = 0;
-        pmtDetails.interest = 0;
-        pmtDetails.balance = amount;
     
         // Create and populate an array of pmtDetails in fields.schedule[]
+        let ttlInterest = Number("0.00");
         fields.schedule = [];
+        let pmtDetails = {};
+        pmtDetails.payment = fields.payment;
+        pmtDetails.principal = 0.00;
+        pmtDetails.interest = 0.00;
+        pmtDetails.ttlInterest = 0.00;
+        pmtDetails.balance = amount;
         fields.schedule.push(pmtDetails);
     
         for(let i = 1; i <= months; i++) {
-            
+
+            let pmtDetails = {};
+            pmtDetails.payment = fields.payment;
             pmtDetails.interest = (amount * rate).toFixed(2);
+            // TO-DO:  Invstigate why ttlInterest (pmtDetails.interest) becomes a string the second time into this loop
+            // Casting pmtDetails.interest as a Number worked, but I consider that to be a temporary workaround until I figure it out
+            // TO-DO:  Write a blog post on this once resolved.
+            ttlInterest += Number(pmtDetails.interest);  
+            pmtDetails.ttlInterest = ttlInterest.toFixed(2);
             pmtDetails.principal = (fields.payment - pmtDetails.interest).toFixed(2);
             pmtDetails.balance = (amount - pmtDetails.principal).toFixed(2);
-
+                
             if( pmtDetails.balance < 0 ) {
                 let adjustment = Math.abs(pmtDetails.balance).toFixed(2);
-                pmtDetails.principal -= adjustment;
+                pmtDetails.principal = (pmtDetails.principal -= adjustment).toFixed(2);
+                pmtDetails.payment = (pmtDetails.payment -= adjustment).toFixed(2);
                 pmtDetails.balance = 0;
             }
 
@@ -181,8 +191,9 @@ function displayResults(fields) {
     // inject summary into summaryDiv
     summaryDiv.appendChild(summary);
 
+    // Create and Display Amortization Schedule
 
-/*     // get handle to results div
+     // get handle to results div
     let resultsDiv = document.getElementById("resultsDiv");
 
     // get handle to table template
@@ -190,46 +201,43 @@ function displayResults(fields) {
     
     // get handle to tbody tag via importNode
     let table = document.importNode(tableTemplate.content,true);
-    let tbodyFizzBuzz = table.querySelector("tbody");
+    let tbodyLoanShark = table.querySelector("tbody");
 
     // clear p tag
-    tbodyFizzBuzz.innerHTML = "";
+    tbodyLoanShark.innerHTML = "";
 
     // add all the rows to the table
-    for (let index = 0; index < fbArray.length; index += 5) {
+    for (let index = 1; index < fields.schedule.length; index++) {
         
-        // let tableRow = document.importNode(tbodyFizzBuzz.content,true);
-        let tableRow = tbodyFizzBuzz.insertRow();
+        // let tableRow = document.importNode(tbodyLoanShark.content,true);
+        let tableRow = tbodyLoanShark.insertRow();
         
         // insert 5 cells
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 6; index++) {
             tableRow.insertCell();            
         }
 
         // grab just the td's and put them into an array
         let rowCols = tableRow.querySelectorAll("td");
 
-        rowCols[0].textContent = fbArray[index];
-        rowCols[0].classList.add(fbArray[index]);
+        rowCols[0].textContent = index;
 
-        rowCols[1].textContent = fbArray[index+1];
-        rowCols[1].classList.add(fbArray[index+1]);
+        rowCols[1].textContent = fields.schedule[index].payment;
 
-        rowCols[2].textContent = fbArray[index+2];
-        rowCols[2].classList.add(fbArray[index+2]);
+        rowCols[2].textContent = fields.schedule[index].principal;
 
-        rowCols[3].textContent = fbArray[index+3];
-        rowCols[3].classList.add(fbArray[index+3]);
+        rowCols[3].textContent = fields.schedule[index].interest;
 
-        rowCols[4].textContent = fbArray[index+4];
-        rowCols[4].classList.add(fbArray[index+4]);
+        rowCols[4].textContent = fields.schedule[index].ttlInterest;
 
-        tbodyFizzBuzz.appendChild(tableRow);
+        rowCols[5].textContent = fields.schedule[index].balance;
+
+        tbodyLoanShark.appendChild(tableRow);
     }
 
         // document.getElementById("tableFizzBuzz").classList.remove("invisible");
     resultsDiv.appendChild(table);
- */
+ 
 }
 
 function displayErrors(fields) {
